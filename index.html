@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>WorkSphere</title>
+</head>
+
+<body>
+
+    <div id="cotainer" class="row">
+        <aside class="col-3 px-5 p-4 bg-light">
+            <h2 class="fs-5">Staff Members (Unassigned)</h2>
+            <div class="card">
+                <div class="card-body d-flex justify-content-around">
+                    <img class="w-5 h-5" src="https://avatar.iran.liara.run/public/40" alt="test">
+
+                    <div>
+                        <span class="">zakaria allam</span><br>
+                        <span>developer</span>
+                    </div>
+                    <button class="btn btn-light text-warning">Edit</button>
+
+                </div>
+            </div>
+            <button class="btn btn-success mt-4" data-bs-toggle="modal" data-bs-target="#AddWorker">Add New
+                Worker</button>
+        </aside>
+
+        <main class="col-9">
+            <div id="row-top" class="row px-5 pt-2">
+                <div class="col-4 position-relative">
+
+
+                    <button class="btn btn-primary position-absolute bottom-0 start-50 translate-middle">+</button>
+                </div>
+                <div class="col-3">
+
+                </div>
+                <div class="col-2 position-relative">
+
+                    <button class="btn btn-primary position-absolute bottom-0 start-50 translate-middle">+</button>
+                </div>
+                <div class="col-3 position-relative">
+
+                    <button class="btn btn-primary position-absolute bottom-0 start-50 translate-middle">+</button>
+                </div>
+
+            </div>
+            <div id="row-bottom" class="row px-5 pb-2">
+                <div class="col-4 position-relative">
+
+                    <button class="btn btn-primary position-absolute bottom-0 start-50 translate-middle">+</button>
+                </div>
+                <div class="col-3">
+
+                </div>
+                <div class="col-5 ">
+                    <div class="row h-50">
+
+
+                    </div>
+                    <div class="row h-50">
+                        <div class="col-6 position-relative">
+
+                            <button
+                                class="btn btn-primary position-absolute bottom-0 start-50 translate-middle">+</button>
+                        </div>
+                        <div class="col-6 position-relative">
+
+                            <button
+                                class="btn btn-primary position-absolute bottom-0 start-50 translate-middle">+</button>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+
+    <!-- Modal Ajouté -->
+    <div class="modal fade" id="AddWorker" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Add New
+                Worker</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-5">
+                    <form action="">
+                        <div class="d-flex flex-column mb-2">
+                            <label for="name">Name</label>
+                            <input type="text" placeholder=" Name">
+                        </div>
+                        <div class="d-flex flex-column mb-2">
+                            <label for="name">Rate</label>
+                            <input type="text" placeholder=" Rate">
+                        </div>
+                        <div class="d-flex flex-column mb-2">
+                            <label for="name">Photo</label>
+                            <input type="text" placeholder=" Url">
+                        </div>
+                        <div id="dynamiqueForm"></div>
+                        <button  id="Add-experience" class="btn btn-warning">Add Experience</button>
+
+                        <div class="d-flex flex-column mb-2">
+                            <label for="email">Email</label>
+                            <input type="email" placeholder=" Email">
+                        </div>
+                        <div class="d-flex flex-column mb-2">
+                            <label for="phone">Phone</label>
+                            <input type="number" placeholder=" Phone">
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success w-100">Update Worker</button>
+                    <button type="button" class="btn btn-danger w-100" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

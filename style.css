@@ -1,0 +1,27 @@
+body{
+    background-color: rgb(231, 235, 248);
+}
+
+img{
+    width: 50px;
+    height: 50px;
+}
+
+main{
+    padding: 0 !important;
+    background-image: url(images/plan-workstaf.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+#cotainer{
+    height: 85vh ;
+}
+
+#row-top{
+    height: 34%;
+}
+
+#row-bottom{
+    height: 66%;
+}
