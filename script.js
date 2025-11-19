@@ -2,6 +2,11 @@ import {validationForm} from './component/validation.js'
 
 let workers = []
 let id = 1
+
+const photo = document.getElementById('photo');
+photo.addEventListener('blur',()=>{
+    document.getElementById('imgDynamic').src = photo.value
+})
 document.getElementById('UpdateWorker').addEventListener('click',()=>{
     let form = document.forms['formAjoute']
     
