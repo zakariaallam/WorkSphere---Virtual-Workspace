@@ -34,3 +34,18 @@ function affichierListWorker(){
       listWorker.innerHTML += CardWorker(worker)
    })
 }
+
+function CardWorker(Element){
+  return `<div class="card ajouteCardEnZone" id="${Element.id}" draggable="true" >
+                <div class="card-body d-flex justify-content-around">
+                    <img class="w-5 h-5" src="https://avatar.iran.liara.run/public/40" alt="test">
+
+                    <div>
+                        <span class="">${Element.name}</span><br>
+                        <span>${Element.role}</span>
+                    </div>
+                    <button class="btn btn-light text-warning">Edit</button>
+
+                </div>
+            </div>` 
+}
