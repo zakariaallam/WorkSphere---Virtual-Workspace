@@ -34,7 +34,10 @@ main{
     background-color: rgb(237, 234, 234);
 }
 
-@media(max-width:576px){
+.btnSuprimier{
+    z-index: 3;
+}
+@media(max-width:600px){
 
     #cotainer{
         display: grid ;
@@ -47,12 +50,66 @@ main{
     }
 
       main{
-        order: 2;
-         width: 900px;     
-        height: 460px;
-        background-image: url(images/vertical\ img.jpg);
-        background-size: contain;
-        background-position: center center;
+        display: flex;
+        background-image: none;
+        justify-content: space-evenly;
+    }
+
+    #row-top {
+        display: grid;
+    }
+     #row-bottom{
+        display: grid ;
+        gap: 1;
+     }
+
+     #div_personnel_archives{
+        display: grid;
+     }
+
+    #div_conference{
+        background-image: url(/images/conference.png);
+        background-size: cover;
+        width: 21rem;
+        height: 10rem;
+        
+    }
+    #div_serveurs{
+        background-image: url(/images/server.png);
+        background-size: cover;
+        width: 100%;
+        height: 10rem;
+       
+        
+    }
+    #div_securite{
+         background-image: url(/images/securite.png);
+         background-size: cover;
+         width: 100%;
+         height: 18rem ;
+        
+        
+    }
+    #div_Receptionnistes{
+         background-image: url(/images/recepetion.png);
+         background-size: cover;
+        width: 17rem;
+        height: 16rem;
+        
+    }
+    #div_personnel{
+       background-image: url(/images/personal.png);
+      background-size: cover;
+       width: 17rem;
+        height: 14rem;
+        
+    }
+    #div_archives{
+        background-image: url(/images/archive.png);
+       background-size: cover;
+        width: 17rem;
+        height: 14rem;
+        
     }
     
 }
