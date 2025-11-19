@@ -49,3 +49,59 @@ function CardWorker(Element){
                 </div>
             </div>` 
 }
+
+
+getNameZone()
+
+function getNameZone(){
+   document.querySelectorAll('.AjouteEnZone').forEach(btn =>{
+    btn.addEventListener('click',()=>{
+       let  Zone = btn.parentElement
+       let nameZone = Zone.querySelector('.zoneName').textContent;
+        ModalistWorker(nameZone)
+
+       AddToZone(Zone)
+    })
+})
+}
+function AddToZone(Zone){
+    let cards = document.querySelectorAll('#listworkers .ajouteCardEnZone')
+   cards.forEach(cardworker =>{
+    cardworker.addEventListener('click',()=>{
+        let id = cardworker.id
+        let indix = workers.findIndex(idx => idx.id == id) 
+        let zoneName = Zone.querySelector('.zoneName').textContent
+            if(workers[indix].role == zoneName){
+                Zone.classList.add('w-25')
+                let card = CardWorker(workers[indix])
+                Zone.insertAdjacentHTML("beforeend", card)
+                workers.splice(indix,1)
+                cardworker.remove();
+                removeCardOnAside(id)
+            }
+
+            if(workers[indix].role == 'Agents de securite' && zoneName.trim() == 'sécurité'){
+                console.log(workers[indix].role)
+                Zone.classList.add('w-25')
+                let card = CardWorker(workers[indix])
+                Zone.insertAdjacentHTML("beforeend", card)
+                workers.splice(indix,1)
+                cardworker.remove();
+                removeCardOnAside(id)
+
+            }
+
+            if(workers[indix].role == 'Techniciens IT' && zoneName.trim() == 'serveurs'){
+                console.log(workers[indix].role)
+                Zone.classList.add('w-25')
+                let card = CardWorker(workers[indix])
+                Zone.insertAdjacentHTML("beforeend", card)
+                workers.splice(indix,1)
+                cardworker.remove();
+                removeCardOnAside(id)
+
+            }
+
+    })
+})
+}
