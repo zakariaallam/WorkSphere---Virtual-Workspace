@@ -1,9 +1,13 @@
+import {validationForm} from './component/validation.js'
+
 let workers = []
 let id = 1
-
 document.getElementById('UpdateWorker').addEventListener('click',()=>{
     let form = document.forms['formAjoute']
     
+    let isvalid = validationForm(form.name,form.email,form.number)
+
+    if(isvalid == 0){
     let object = {
         name : form.name.value,
         role : form.role.value,
@@ -13,6 +17,8 @@ document.getElementById('UpdateWorker').addEventListener('click',()=>{
         Experiences : [],
         id : id
     }
+
+    checkExperienceIsFondORNot(object)
     // let Experience = {
     //                     company : form.company.value,
     //                     Role : form.roleExperience.value,
@@ -24,6 +30,7 @@ document.getElementById('UpdateWorker').addEventListener('click',()=>{
     affichierListWorker()
     id++
 
+    }
 
 })
 
@@ -34,7 +41,7 @@ function affichierListWorker(){
       listWorker.innerHTML += CardWorker(worker)
    })
 
-   //    Add event Profile 
+//    Add event Profile 
 const profileCards = document.querySelectorAll('#listCards .ajouteCardEnZone')
 profileCards.forEach(card =>{
     let id = card.id;
@@ -60,7 +67,30 @@ function CardWorker(Element){
             </div>` 
 }
 
+function ModalistWorker(nameZone){
+    let listworkers = document.getElementById('listworkers')
+    listworkers.innerHTML = ''
+    workers.forEach(worker =>{
+        if(worker.role == nameZone){
+         listworkers.innerHTML += CardWorker(worker)
+        }
+        if(nameZone.trim() == 'sécurité' && worker.role == 'Agents de securite'){
+          listworkers.innerHTML += CardWorker(worker)
+        }
 
+        if(nameZone.trim() == 'serveurs' && worker.role == 'Techniciens IT'){
+          listworkers.innerHTML += CardWorker(worker)
+        }
+
+        if(worker.role.trim() == 'Manager'){
+           listworkers.innerHTML += CardWorker(worker)
+        }
+
+        if(worker.role.trim() == 'Nettoyage' && nameZone.trim() != 'd’archives'){
+             listworkers.innerHTML += CardWorker(worker)
+        }
+    })
+}
 getNameZone()
 
 function getNameZone(){
@@ -116,6 +146,16 @@ function AddToZone(Zone){
 })
 }
 
+
+function removeCardOnAside(id){
+    let listCards = document.querySelectorAll('#listCards .ajouteCardEnZone')
+    listCards.forEach(card =>{
+        if(card.id == id){
+           card.remove()
+        }
+    })
+}
+
 // dynameque btn Experience
 const AddExperience = document.getElementById('AddExperience')
   AddExperience.addEventListener('click',()=>{
@@ -155,8 +195,6 @@ function checkExperienceIsFondORNot(object){
         })
     }
 }
-
-
 // Profile
 
 
@@ -171,6 +209,8 @@ function affichierProfile(id){
     // document.getElementById('profileFrom').textContent = workers[id].Experiences[0].start
     // document.getElementById('profileTo').textContent = workers[id].Experiences[0].end
     let count =1
+    const profileContainer = document.getElementById('profileContainer')
+    profileContainer.innerHTML = ''
     workers[id].Experiences.forEach(exp => {
       let Experience = `<h6>Experience <span id="NumberExperience">${count}</span> </h6>
              p>Company: <span id="profileCompany">${exp.company}</span></p>
@@ -178,7 +218,7 @@ function affichierProfile(id){
              <p>From: <span id="profileFrom">${exp.start}</span></p>
           <p>To: <span id="profileTo">${exp.end}</span></p>`
 
-          document.getElementById('profileContainer').insertAdjacentHTML('beforeend',Experience)
+          profileContainer.insertAdjacentHTML('beforeend',Experience)
 
           count++
     })

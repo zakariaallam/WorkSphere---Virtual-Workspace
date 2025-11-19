@@ -25,3 +25,34 @@ main{
 #row-bottom{
     height: 66%;
 }
+
+.card{
+    cursor: pointer;
+}
+
+.card:hover{
+    background-color: rgb(237, 234, 234);
+}
+
+@media(max-width:576px){
+
+    #cotainer{
+        display: grid ;
+        gap: 4rem;
+    }
+
+    aside{
+        width: 90% !important;
+        margin: 0 auto;
+    }
+
+      main{
+        order: 2;
+         width: 900px;     
+        height: 460px;
+        background-image: url(images/vertical\ img.jpg);
+        background-size: contain;
+        background-position: center center;
+    }
+    
+}
