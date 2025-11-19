@@ -130,3 +130,18 @@ const AddExperience = document.getElementById('AddExperience')
 
                           dynamiqueForm.insertAdjacentHTML('beforeend',Experience)
 })
+
+function checkExperienceIsFondORNot(object){
+    const Experience = document.querySelectorAll('.Experience')
+    if(Experience.length>0){
+        Experience.forEach(Exp => { 
+            let Experience = {
+                        company : Exp.querySelector('.company').value,
+                        start : Exp.querySelector('.from').value,
+                        end : Exp.querySelector('.to').value,
+                        Role : Exp.querySelector('.roleExperience').value,
+                     }
+               object.Experiences.push(Experience)
+        })
+    }
+}
