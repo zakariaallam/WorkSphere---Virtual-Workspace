@@ -33,6 +33,16 @@ function affichierListWorker(){
    workers.forEach(worker =>{
       listWorker.innerHTML += CardWorker(worker)
    })
+
+   //    Add event Profile 
+const profileCards = document.querySelectorAll('#listCards .ajouteCardEnZone')
+profileCards.forEach(card =>{
+    let id = card.id;
+    let indix = workers.findIndex(idx => idx.id == id)
+    card.addEventListener('click',()=>{
+        affichierProfile(indix)
+    })
+})
 }
 
 function CardWorker(Element){
@@ -144,4 +154,38 @@ function checkExperienceIsFondORNot(object){
                object.Experiences.push(Experience)
         })
     }
+}
+
+
+// Profile
+
+
+function affichierProfile(id){
+    document.getElementById('profilePhoto').src = workers[id].Photo
+    document.getElementById('profileName').textContent = workers[id].name
+    document.getElementById('profileRole').textContent = workers[id].rol
+    document.getElementById('profileEmail').textContent = workers[id].email
+    document.getElementById('profilePhone').textContent = workers[id].number
+    // document.getElementById('profileCompany').textContent = workers[id].Experiences[0].company
+    // document.getElementById('profileRole').textContent = workers[id].Experiences[0].Role
+    // document.getElementById('profileFrom').textContent = workers[id].Experiences[0].start
+    // document.getElementById('profileTo').textContent = workers[id].Experiences[0].end
+    let count =1
+    workers[id].Experiences.forEach(exp => {
+      let Experience = `<h6>Experience <span id="NumberExperience">${count}</span> </h6>
+             p>Company: <span id="profileCompany">${exp.company}</span></p>
+             <p>Role: <span id="profileRole">${exp.Role}</span></p>
+             <p>From: <span id="profileFrom">${exp.start}</span></p>
+          <p>To: <span id="profileTo">${exp.end}</span></p>`
+
+          document.getElementById('profileContainer').insertAdjacentHTML('beforeend',Experience)
+
+          count++
+    })
+
+
+    // chow modale profile
+    let Modal = new bootstrap.Modal(document.getElementById('profileModal'))
+    Modal.show()
+    
 }
