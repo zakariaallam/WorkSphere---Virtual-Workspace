@@ -105,3 +105,43 @@ function AddToZone(Zone){
     })
 })
 }
+
+// dynameque btn Experience
+const AddExperience = document.getElementById('AddExperience')
+  AddExperience.addEventListener('click',()=>{
+                     let Experience =    `<div class = "Experience">
+                     <div class="d-flex flex-column mb-2 ">
+                            <label for="company">Company</label>
+                            <input class="company" name="company" type="text" placeholder=" Company" >
+                            </div>
+                            <div class="d-flex flex-column mb-2">
+                            <label for="roleExperience">Role</label>
+                            <input class="roleExperience" name="roleExperience" type="text" placeholder=" Role" >
+                            </div>
+                            <div class="d-flex flex-column mb-2">
+                            <label for="from">From :</label>
+                            <input class="from" name="from" type="date"  >
+                            </div>
+                            <div class="d-flex flex-column mb-2">
+                            <label for="to">To :</label>
+                            <input class="to" name="to" type="date"  >
+                            </div>
+                            </div>`
+
+                          dynamiqueForm.insertAdjacentHTML('beforeend',Experience)
+})
+
+function checkExperienceIsFondORNot(object){
+    const Experience = document.querySelectorAll('.Experience')
+    if(Experience.length>0){
+        Experience.forEach(Exp => { 
+            let Experience = {
+                        company : Exp.querySelector('.company').value,
+                        start : Exp.querySelector('.from').value,
+                        end : Exp.querySelector('.to').value,
+                        Role : Exp.querySelector('.roleExperience').value,
+                     }
+               object.Experiences.push(Experience)
+        })
+    }
+}
