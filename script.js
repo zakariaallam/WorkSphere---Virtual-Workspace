@@ -18,14 +18,7 @@ document.getElementById('UpdateWorker').addEventListener('click',()=>{
         id : id
     }
 
-    checkExperienceIsFondORNot(object)
-    // let Experience = {
-    //                     company : form.company.value,
-    //                     Role : form.roleExperience.value,
-    //                     start : form.from.value,
-    //                     end : form.to.value,
-    //                  }
-    // object.Experiences.push(Experience)                 
+    checkExperienceIsFondORNot(object)                
     workers.push(object)
     affichierListWorker()
     id++
@@ -61,7 +54,7 @@ function CardWorker(Element){
                         <span class="">${Element.name}</span><br>
                         <span>${Element.role}</span>
                     </div>
-                    <button class="btn btn-light text-warning">Edit</button>
+                    <button class="btn btn-light text-danger btnSuprimier">X</button>
 
                 </div>
             </div>` 
@@ -111,7 +104,7 @@ function AddToZone(Zone){
         let id = cardworker.id
         let indix = workers.findIndex(idx => idx.id == id) 
         let zoneName = Zone.querySelector('.zoneName').textContent
-            if(workers[indix].role == zoneName){
+            if(workers[indix].role == zoneName ){
                 Zone.classList.add('w-25')
                 let card = CardWorker(workers[indix])
                 Zone.insertAdjacentHTML("beforeend", card)
@@ -121,7 +114,6 @@ function AddToZone(Zone){
             }
 
             if(workers[indix].role == 'Agents de securite' && zoneName.trim() == 'sécurité'){
-                console.log(workers[indix].role)
                 Zone.classList.add('w-25')
                 let card = CardWorker(workers[indix])
                 Zone.insertAdjacentHTML("beforeend", card)
@@ -132,7 +124,6 @@ function AddToZone(Zone){
             }
 
             if(workers[indix].role == 'Techniciens IT' && zoneName.trim() == 'serveurs'){
-                console.log(workers[indix].role)
                 Zone.classList.add('w-25')
                 let card = CardWorker(workers[indix])
                 Zone.insertAdjacentHTML("beforeend", card)
@@ -142,6 +133,15 @@ function AddToZone(Zone){
 
             }
 
+            if(workers[indix].role == 'Manager' ){
+                Zone.classList.add('w-25')
+                let card = CardWorker(workers[indix])
+                Zone.insertAdjacentHTML("beforeend", card)
+                workers.splice(indix,1)
+                cardworker.remove();
+                removeCardOnAside(id)
+
+            }
     })
 })
 }
@@ -229,3 +229,16 @@ function affichierProfile(id){
     Modal.show()
     
 }
+
+document.querySelectorAll('.btnSuprimier').forEach(btn=>{
+   btn.addEventListener('click',()=>{
+  document.querySelectorAll('#listworkers .ajouteCardEnZone').forEach(card =>{
+    let indix = workers.findIndex(idx => card.id == idx.id)
+    console.log(workers)
+    workers.splice(indix,1)
+    console.log(workers)
+    card.remove()
+  })
+
+   })
+})
