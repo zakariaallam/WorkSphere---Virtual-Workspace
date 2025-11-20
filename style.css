@@ -35,7 +35,7 @@ main{
 }
 
 .btnSuprimier{
-    z-index: 3;
+    z-index: 10 !important;
 }
 @media(max-width:600px){
 
