@@ -65,6 +65,21 @@ function CardWorker(Element) {
             </div>`;
 }
 
+function miniCardWorker(Element) {
+  return `<div class="card ajouteCardEnZone cardSize" id="${Element.id}" draggable="true" >
+                <div class="card-body d-flex justify-content-between align-items-center w-100 p-0">
+                    <img class="imageSize" src="https://avatar.iran.liara.run/public/40" alt="test">
+
+                    <div>
+                        <span class="textSize" >${Element.name}</span><br>
+                        <span class="textSize">${Element.role}</span>
+                    </div>
+                    <button class="btn btn-light text-danger btnSuprimier textSize ">X</button>
+
+                </div>
+            </div>`;
+}
+
 function ModalistWorker(nameZone) {
   let listworkers = document.getElementById("listworkers");
   listworkers.innerHTML = "";
@@ -110,9 +125,9 @@ function AddToZone(Zone) {
       let indix = workers.findIndex((idx) => idx.id == id);
       let zoneName = Zone.querySelector(".zoneName").textContent;
       if (workers[indix].role == zoneName) {
-        Zone.classList.add("w-25");
-        let card = CardWorker(workers[indix]);
-        Zone.insertAdjacentHTML("beforeend", card);
+        let card = miniCardWorker(workers[indix]);
+        Zone.insertAdjacentHTML("afterbegin", card);
+        checkZoneIsvide(Zone)
         let object = {
           name: workers[indix].name,
           role: workers[indix].role,
@@ -125,16 +140,16 @@ function AddToZone(Zone) {
         workers.splice(indix, 1);
         cardworker.remove();
         removeCardOnAside(id);
-        suprmierCardsFromZone(Zone);
+        suprmierCardsFromZone(Zone,object);
       }
 
       if (
         workers[indix].role == "Agents de securite" &&
         zoneName.trim() == "sécurité"
       ) {
-        Zone.classList.add("w-25");
-        let card = CardWorker(workers[indix]);
-        Zone.insertAdjacentHTML("beforeend", card);
+        let card = miniCardWorker(workers[indix]);
+        Zone.insertAdjacentHTML("afterbegin", card);
+        checkZoneIsvide(Zone)
         let object = {
           name: workers[indix].name,
           role: workers[indix].role,
@@ -147,16 +162,16 @@ function AddToZone(Zone) {
         workers.splice(indix, 1);
         cardworker.remove();
         removeCardOnAside(id);
-        suprmierCardsFromZone(Zone);
+        suprmierCardsFromZone(Zone,object);
       }
 
       if (
         workers[indix].role == "Techniciens IT" &&
         zoneName.trim() == "serveurs"
       ) {
-        Zone.classList.add("w-25");
-        let card = CardWorker(workers[indix]);
-        Zone.insertAdjacentHTML("beforeend", card);
+        let card = miniCardWorker(workers[indix]);
+        Zone.insertAdjacentHTML("afterbegin", card);
+        checkZoneIsvide(Zone)
         let object = {
           name: workers[indix].name,
           role: workers[indix].role,
@@ -169,13 +184,32 @@ function AddToZone(Zone) {
         workers.splice(indix, 1);
         cardworker.remove();
         removeCardOnAside(id);
-        suprmierCardsFromZone(Zone);
+        suprmierCardsFromZone(Zone,object);
       }
 
       if (workers[indix].role == "Manager") {
-        Zone.classList.add("w-25");
-        let card = CardWorker(workers[indix]);
-        Zone.insertAdjacentHTML("beforeend", card);
+        let card = miniCardWorker(workers[indix]);
+        Zone.insertAdjacentHTML("afterbegin", card);
+        checkZoneIsvide(Zone)
+        let object = {
+          name: workers[indix].name,
+          role: workers[indix].role,
+          email: workers[indix].email,
+          number: workers[indix].number,
+          Photo: workers[indix].Photo,
+          Experiences: workers[indix].Experiences,
+          id: workers[indix].id,
+        };
+        workers.splice(indix, 1);
+        cardworker.remove();
+        removeCardOnAside(id);
+        suprmierCardsFromZone(Zone,object);
+      }
+
+      if (workers[indix].role == "Nettoyage" && zoneName.trim() != "d’archives" ) {
+        let card = miniCardWorker(workers[indix]);
+        Zone.insertAdjacentHTML("afterbegin", card);
+        checkZoneIsvide(Zone)
         let object = {
           name: workers[indix].name,
           role: workers[indix].role,
@@ -194,12 +228,14 @@ function AddToZone(Zone) {
   });
 }
 
+
 function suprmierCardsFromZone(Zone,object) {
   Zone.querySelectorAll(".btnSuprimier").forEach((btn) => {
     btn.addEventListener("click", () => {
          workers.push(object);
       affichierListWorker();
-      Zone.remove();
+      btn.parentElement.parentElement.remove();
+      checkZoneIsvide(Zone)
     });
   });
 }
@@ -279,4 +315,22 @@ function affichierProfile(id) {
   // chow modale profile
   let Modal = new bootstrap.Modal(document.getElementById("profileModal"));
   Modal.show();
+}
+
+
+function checkZoneIsvide(Zone){
+  let isVide = Zone.querySelectorAll('.cardSize').length
+  console.log(isVide)
+  let name = Zone.querySelector('.zoneName').textContent.trim()
+
+  if(isVide <= 0 ){
+    Zone.classList.remove('bg-transparent')
+     Zone.style.backgroundColor = "#e512122d";
+     console.log("manadich")
+  }else{
+    Zone.classList.add('bg-transparent')
+    Zone.style.backgroundColor = ''
+    console.log(Zone)
+  }
+
 }

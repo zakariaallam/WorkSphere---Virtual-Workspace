@@ -37,6 +37,51 @@ main{
 .btnSuprimier{
     z-index: 10 !important;
 }
+
+#div_conference{
+    width: 38%;
+    height: 100%;
+}
+
+#div_securite{
+    width: 22%;
+    background-color: #e512122d;
+}
+
+#div_serveurs{
+    width: 23%;
+    background-color: #e512122d;
+}
+#div_Receptionnistes{
+    width: 38%;
+    background-color: #e512122d;
+}
+
+#div_personnel{
+    width: 54%;
+}
+
+#div_archives{
+    width: 46%;
+}
+
+.cardSize{
+    width: 8rem;
+    height: 3rem;
+}
+.imageSize{
+    width: 30px;
+    height: 30px;
+}
+
+.textSize{
+    font-size: 7px;
+}
+
+.textSize{
+    height: 40%;
+    width: 20%;
+}
 @media(max-width:600px){
 
     #cotainer{
