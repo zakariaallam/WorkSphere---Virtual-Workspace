@@ -1,0 +1,160 @@
+body{
+    background-color: rgb(231, 235, 248);
+}
+
+img{
+    width: 50px;
+    height: 50px;
+}
+
+main{
+    padding: 0 !important;
+    background-image: url(images/plan-workstaf.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+#cotainer{
+    height: 85vh ;
+}
+
+#row-top{
+    height: 34%;
+}
+
+#row-bottom{
+    height: 66%;
+}
+
+.card{
+    cursor: pointer;
+}
+
+.card:hover{
+    background-color: rgb(237, 234, 234);
+}
+
+.btnSuprimier{
+    z-index: 10 !important;
+}
+
+#div_conference{
+    width: 38%;
+    height: 100%;
+}
+
+#div_securite{
+    width: 22%;
+    background-color: #e512122d;
+}
+
+#div_serveurs{
+    width: 23%;
+    background-color: #e512122d;
+}
+#div_Receptionnistes{
+    width: 38%;
+    background-color: #e512122d;
+}
+
+#div_personnel{
+    width: 54%;
+}
+
+#div_archives{
+    width: 46%;
+}
+
+.cardSize{
+    width: 8rem;
+    height: 3rem;
+}
+.imageSize{
+    width: 30px;
+    height: 30px;
+}
+
+.textSize{
+    font-size: 7px;
+}
+
+.textSize{
+    height: 40%;
+    width: 20%;
+}
+@media(max-width:600px){
+
+    #cotainer{
+        display: grid ;
+        gap: 4rem;
+    }
+
+    aside{
+        width: 90% !important;
+        margin: 0 auto;
+    }
+
+      main{
+        display: flex;
+        background-image: none;
+        justify-content: space-evenly;
+    }
+
+    #row-top {
+        display: grid;
+    }
+     #row-bottom{
+        display: grid ;
+        gap: 1;
+     }
+
+     #div_personnel_archives{
+        display: grid;
+     }
+
+    #div_conference{
+        background-image: url(/images/conference.png);
+        background-size: cover;
+        width: 21rem;
+        height: 10rem;
+        
+    }
+    #div_serveurs{
+        background-image: url(/images/server.png);
+        background-size: cover;
+        width: 100%;
+        height: 10rem;
+       
+        
+    }
+    #div_securite{
+         background-image: url(/images/securite.png);
+         background-size: cover;
+         width: 100%;
+         height: 18rem ;
+        
+        
+    }
+    #div_Receptionnistes{
+         background-image: url(/images/recepetion.png);
+         background-size: cover;
+        width: 17rem;
+        height: 16rem;
+        
+    }
+    #div_personnel{
+       background-image: url(/images/personal.png);
+      background-size: cover;
+       width: 17rem;
+        height: 14rem;
+        
+    }
+    #div_archives{
+        background-image: url(/images/archive.png);
+       background-size: cover;
+        width: 17rem;
+        height: 14rem;
+        
+    }
+    
+}
