@@ -3,13 +3,65 @@ import { validationForm } from "./component/validation.js";
 let workers = [];
 let id = 1;
 
+let dataZone = {
+  "Receptionnistes" : [],
+  "sécurité" : [],
+  "serveurs" : [],
+  "Manager" : [],
+  "Nettoyage" : [],
+  "d’archives" : []
+}
+
+//  save data in localStorage 
+
+function saveData(){
+  let AllData = {
+  workers : workers,
+  dataZone : dataZone
+}
+  localStorage.setItem('AllData',JSON.stringify(AllData))
+}
+
+// get data in localStorage
+function getData(){
+  let data = JSON.parse(localStorage.getItem('AllData')) || []
+  workers = data.workers
+  dataZone = data.dataZone
+
+}
+
+// save data in Zone 
+function saveDataInZone(){
+  document.querySelectorAll(".zone").forEach(zone => {
+    let name = zone.querySelector(".zoneName").textContent.trim();
+
+    if (dataZone[name] && dataZone[name].length > 0) {
+      dataZone[name].forEach(worker => {
+        zone.insertAdjacentHTML("beforeend", miniCardWorker(worker));
+      });
+    }
+
+    checkZoneIsvide(zone);
+  });
+}
+
+// start applecation
+if(workers.length >0){
+getData()
+affichierListWorker()
+saveDataInZone()
+}
+// foto prévisualisation
 const photo = document.getElementById("photo");
 photo.addEventListener("blur", () => {
   document.getElementById("imgDynamic").src = photo.value;
 });
+
+// Add worker
 document.getElementById("UpdateWorker").addEventListener("click", () => {
   let form = document.forms["formAjoute"];
 
+  // validation form 
   let isvalid = validationForm(form.name, form.email, form.number);
 
   if (isvalid == 0) {
@@ -35,6 +87,8 @@ function affichierListWorker() {
   listWorker.innerHTML = "";
   workers.forEach((worker) => {
     listWorker.innerHTML += CardWorker(worker);
+    dragEndDrop()
+    saveData()
   });
 
   //    Add event Profile
@@ -124,6 +178,12 @@ function AddToZone(Zone) {
       let id = cardworker.id;
       let indix = workers.findIndex((idx) => idx.id == id);
       let zoneName = Zone.querySelector(".zoneName").textContent;
+        let limitZone = Zone.querySelectorAll('.cardSize').length
+        
+      if( (zoneName.trim() == "sécurité" || zoneName.trim() == "serveurs") && limitZone >1 ){
+        alert("maximaum Add to salle de " + zoneName + "est " + limitZone)
+        return
+      }
       if (workers[indix].role == zoneName) {
         let card = miniCardWorker(workers[indix]);
         Zone.insertAdjacentHTML("afterbegin", card);
@@ -141,6 +201,9 @@ function AddToZone(Zone) {
         cardworker.remove();
         removeCardOnAside(id);
         suprmierCardsFromZone(Zone,object);
+        dataZone[zoneName].push(workers[indix]);
+      saveData();
+        return
       }
 
       if (
@@ -163,6 +226,9 @@ function AddToZone(Zone) {
         cardworker.remove();
         removeCardOnAside(id);
         suprmierCardsFromZone(Zone,object);
+        dataZone[zoneName].push(workers[indix]);
+      saveData();
+        return
       }
 
       if (
@@ -185,6 +251,9 @@ function AddToZone(Zone) {
         cardworker.remove();
         removeCardOnAside(id);
         suprmierCardsFromZone(Zone,object);
+        dataZone[zoneName].push(workers[indix]);
+      saveData();
+        return
       }
 
       if (workers[indix].role == "Manager") {
@@ -204,6 +273,9 @@ function AddToZone(Zone) {
         cardworker.remove();
         removeCardOnAside(id);
         suprmierCardsFromZone(Zone,object);
+        dataZone[zoneName].push(workers[indix]);
+      saveData();
+        return
       }
 
       if (workers[indix].role == "Nettoyage" && zoneName.trim() != "d’archives" ) {
@@ -223,6 +295,9 @@ function AddToZone(Zone) {
         cardworker.remove();
         removeCardOnAside(id);
         suprmierCardsFromZone(Zone,object);
+        dataZone[zoneName].push(workers[indix]);
+      saveData();
+        return
       }
     });
   });
@@ -230,14 +305,33 @@ function AddToZone(Zone) {
 
 
 function suprmierCardsFromZone(Zone,object) {
-  Zone.querySelectorAll(".btnSuprimier").forEach((btn) => {
-    btn.addEventListener("click", () => {
+  let btn = Zone.querySelector(".cardSize .btnSuprimier")
+  if(btn != undefined){
+  let newBtn = btn.cloneNode(true);
+    btn.parentElement.replaceChild(newBtn, btn);
+    newBtn.addEventListener("click", () => {
          workers.push(object);
-      affichierListWorker();
-      btn.parentElement.parentElement.remove();
+         saveData();
+
+      // let card = `<div class="card ajouteCardEnZone" id="${object.id}" draggable="true" >
+      //           <div class="card-body d-flex justify-content-around">
+      //               <img class="w-5 h-5" src="https://avatar.iran.liara.run/public/40" alt="test">
+
+      //               <div>
+      //                   <span>${object.name}</span><br>
+      //                   <span>${object.role}</span>
+      //               </div>
+      //               <button class="btn btn-light text-danger btnSuprimier">X</button>
+
+      //           </div>
+      //       </div>`
+      //       document.getElementById("listCards").insertAdjacentHTML('beforeend',card)
+
+      newBtn.parentElement.parentElement.remove();
       checkZoneIsvide(Zone)
+      affichierListWorker()
     });
-  });
+  }
 }
 
 
@@ -320,17 +414,45 @@ function affichierProfile(id) {
 
 function checkZoneIsvide(Zone){
   let isVide = Zone.querySelectorAll('.cardSize').length
-  console.log(isVide)
+  
   let name = Zone.querySelector('.zoneName').textContent.trim()
 
   if(isVide <= 0 ){
     Zone.classList.remove('bg-transparent')
      Zone.style.backgroundColor = "#e512122d";
-     console.log("manadich")
   }else{
     Zone.classList.add('bg-transparent')
     Zone.style.backgroundColor = ''
-    console.log(Zone)
   }
 
+}
+
+// darag end drop
+function dragEndDrop(){
+
+  let id ;
+  let zoneOver;
+document.querySelectorAll('#listCards .ajouteCardEnZone').forEach(card =>{
+  card.addEventListener('dragstart',()=>{
+    id = card.id
+  })
+  })
+
+  document.querySelectorAll('.zone').forEach(zone =>{
+    zone.addEventListener('dragover',(e)=>{
+    e.preventDefault()
+     zoneOver = e.target
+  })
+
+  zone.addEventListener('drop',(e)=>{
+    e.preventDefault()
+    let indix = (id - 1)
+    console.log(workers[indix])
+     zoneOver.insertAdjacentHTML('afterbegin', miniCardWorker(workers[indix]))
+      
+
+})
+  })
+
+  
 }
